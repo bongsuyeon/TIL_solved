@@ -1,0 +1,21 @@
+import java.io.*;
+import java.util.Scanner;
+
+
+public class Main {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int answer = 0;
+		Scanner sc = new Scanner(System.in);
+		String str = sc.nextLine().trim();
+		if(str.length() == 0) answer=0;
+		else {
+			str = str.replaceAll("[A-Za-z]","");
+			answer = str.length()+1;
+		}
+		
+		System.out.println(answer);
+	}
+
+}

@@ -1,0 +1,32 @@
+import java.io.*;
+import java.util.Scanner;
+
+
+public class Main {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc = new Scanner(System.in);
+		String str = sc.nextLine();
+		str = str.toUpperCase();
+		
+		String overlap = "";
+		int overCount = 0;
+		
+		while(str.length() > 0) {
+			String stand = str.substring(0, 1);
+			String strCompare = str.replaceAll(stand, "");
+			int standLength = str.length() - strCompare.length();
+			if(standLength > overCount) {
+				overlap = stand;
+				overCount = str.length() - strCompare.length();
+			}else if(standLength == overCount) {
+				overlap = "?";
+			}
+			str = strCompare;
+		}
+		
+		System.out.println(overlap);
+	}
+
+}
