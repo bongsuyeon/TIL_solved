@@ -1,0 +1,32 @@
+import java.util.Arrays;
+import java.util.ArrayList;
+ 
+class Solution {
+    public int[] solution(int[] array, int[][] commands) {
+        int[] answer = {};
+        ArrayList<Integer> answerList = new ArrayList<Integer>();
+        
+        for(int index = 0; index < commands.length; index++){
+            int firstNum = commands[index][0];
+            int endNum = commands[index][1];
+            int seq = commands[index][2];
+            
+            int[] temp_array = Arrays.copyOfRange(array, firstNum-1, endNum);
+            Arrays.sort(temp_array);            
+            answerList.add(temp_array[seq-1]);           
+        }
+        
+        answer = answerList.stream().mapToInt(i -> i).toArray();
+        return answer;
+    }
+}
+/*
+    //array값을 출력할 때 ::: Arrays.toString()
+    System.out.println(Arrays.toString(temp_array));
+*/
+/*
+    //List -> Array로 변환할 때 (int[]은 편한메소드 없다)
+    //밑에는 String일때 사용가능
+    //...List Array 다룰때 int[] String[] 다르니까... 정리해놓자..
+    answer = answerList.toArray(new Stirng[answerList.size()]);
+*/

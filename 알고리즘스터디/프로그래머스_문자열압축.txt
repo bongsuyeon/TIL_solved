@@ -11,7 +11,7 @@ class Solution {
 	public int solution(String str) {
 		String compareStr = "";
 		String standWord = "";
-        int cnt = 1;
+        		int cnt = 1;
 		int min = str.length();
 		int i=0,j=0,k=0;
 		

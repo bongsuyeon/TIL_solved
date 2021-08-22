@@ -1,0 +1,49 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+
+class Solution {
+    public static int[] plusMinus (int[] arr, int value, int length) {
+        int flag = 1;
+        for(int i=0; i< arr.length; i++){
+            if(i%length==0){
+                flag = 1-flag; 
+            }
+           if(flag==0){
+               arr[i] += value;
+           }
+            if(flag==1){
+                arr[i] -= value;
+            }   
+        }
+		return arr;
+	}
+    
+    public static int count (int[] arr, int target){
+        int cnt = 0;
+        for(int i=0; i<arr.length; i++){
+            if(target == arr[i]) cnt++;
+        }
+        return cnt;
+    }
+    
+    
+    public int solution(int[] numbers, int target) {
+        int answer = 0;
+        int total = (int)Math.pow(2, numbers.length);
+        int[] valueArr = new int[total];
+        
+        Arrays.fill(valueArr,0); //0으로 초기화
+        
+        int value = 0;
+        int i = 0;
+        
+
+        while(total > 1){
+            value = numbers[i++];
+            valueArr = plusMinus(valueArr, value, total/=2);
+            //System.out.println(i+Arrays.toString(valueArr));
+        }
+        answer = count(valueArr,target);
+        return answer;
+    }
+}
