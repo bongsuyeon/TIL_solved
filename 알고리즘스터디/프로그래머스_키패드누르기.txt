@@ -1,0 +1,69 @@
+function solution(numbers, hand) {
+    var answer = '';
+    let lPos = 10;
+    let rPos = 12;
+    
+    numbers.map((num)=> {
+        if(num === 0){ num = 11;}
+        
+        if(lPos === num){
+            answer = answer.concat('L');
+        }
+        else if(rPos === num){
+            answer = answer.concat('R');
+        }
+        else{
+            if( num === 1 || num === 4 ||  num === 7){
+                lPos = num;
+                answer = answer.concat('L');
+            }
+            else if( num === 3 || num === 6 ||  num === 9){
+                rPos = num;
+                answer = answer.concat('R');
+            }
+            else if( num === 2 || num === 5 ||  num === 8 || num === 11){
+                let lCnt = 0, rCnt = 0;
+                let temp_l = lPos, temp_r = rPos;
+
+                //왼쪽카운트
+                if(temp_l%3 === 1){
+                    lCnt++;
+                    temp_l++;
+                }            
+                if(num !== temp_l){
+                    lCnt += Math.abs((temp_l- num)/3);
+                }
+
+                //오른쪽카운트
+                if(temp_r%3 === 0){
+                    rCnt++;
+                    temp_r--;
+                }
+                if(num !== temp_r){
+                    rCnt += Math.abs((temp_r-num)/3);
+                }
+
+                //비교
+                if(rCnt === lCnt){
+                    if( hand==='left') {
+                        answer = answer.concat('L');
+                        lPos = num;
+                    }
+                    else if( hand=== 'right') {
+                        answer = answer.concat('R');
+                        rPos = num;
+                    }
+                } else if(rCnt > lCnt){
+                    answer = answer.concat('L');
+                    lPos = num;
+                } else if(rCnt < lCnt){
+                    answer = answer.concat('R');
+                    rPos = num;
+                }
+
+            }
+        }
+    })
+    
+    return answer;
+}
