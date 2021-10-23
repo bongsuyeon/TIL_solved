@@ -1,0 +1,43 @@
+import java.util.Scanner;
+
+class Main {
+	static int N;
+	static int M;
+	static int[] group;
+	
+	public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+              
+        N = sc.nextInt()+1;
+        M = sc.nextInt();
+        int cnt = 0;
+        
+        group = new int[N];        
+        for(int i=0; i< N; i++) {
+        	group[i] = i;
+        }
+        
+        for(int i=0; i< M; i++) {
+        	int a = sc.nextInt();
+        	int b = sc.nextInt();
+	
+    		a = findParent(a);
+    		b = findParent(b);
+    		
+    		if(a < b)
+    			group[b] = a;
+    		else
+    			group[a] = b;
+        }
+        for(int i=0; i< N; i++) {
+        	if(findParent(group[i]) == 1)
+        		cnt+=1;
+        }
+        System.out.println(cnt-1);
+	}
+	static int findParent(int x) {
+		if(group[x] == x) return x;
+		return findParent(group[x]);
+	}
+
+}
