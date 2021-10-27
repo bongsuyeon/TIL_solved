@@ -1,0 +1,91 @@
+import java.util.Arrays;
+
+class Solution {
+    public static int[][] swing(int[][] mat, int[] quer){
+        int i=0, j=0;
+        int x1=quer[0]-1; //2
+        int x2=quer[2]-1; //5
+        int y1=quer[1]-1; //2
+        int y2=quer[3]-1; //4
+        
+        int temp = mat[x1][y1]; //2.2 //8
+        
+        //1. 왼쪽 -> 오른쪽
+        for(i = y1; i < y2; i++){ //2.2->2.4
+            temp += mat[x1][i+1];
+            mat[x1][i+1] = temp- mat[x1][i+1];
+            temp -= mat[x1][i+1];
+        }
+        //2. 오른쪽 아래로        
+        for(i = x1+1; i <= x2; i++){ //2.4->5.4
+            temp += mat[i][y2];
+            mat[i][y2] = temp- mat[i][y2];
+            temp -= mat[i][y2];
+        }
+        //3.아래 오른쪽 -> 왼쪽
+        for(i = y2-1; i >= y1; i--){ //5.4 -> 5.2
+            temp += mat[x2][i];
+            mat[x2][i] = temp - mat[x2][i];
+            temp -= mat[x2][i];
+        }
+        //4. 아래서 위로
+        for(i = x2-1; i >= x1; i--){ //5.4 -> 5.2
+            temp += mat[i][y1];
+            mat[i][y1] = temp - mat[i][y1];
+            temp -= mat[i][y1];
+        }
+                
+        return mat;    
+    }
+    public static int findMin(int[][] mat, int[] quer,int min){
+        int i=0, j=0;
+        int x1=quer[0]-1; //2
+        int x2=quer[2]-1; //5
+        int y1=quer[1]-1; //2
+        int y2=quer[3]-1; //4
+                
+        //1. 왼쪽 -> 오른쪽
+        for(i = y1; i < y2; i++){ //2.2->2.4
+            if(min > mat[x1][i+1])
+                min = mat[x1][i+1];
+        }
+        //2. 오른쪽 아래로        
+        for(i = x1+1; i <= x2; i++){ //2.4->5.4
+            if(min > mat[i][y2])
+                min = mat[i][y2];
+        }
+        //3.아래 오른쪽 -> 왼쪽
+        for(i = y2-1; i >= y1; i--){ //5.4 -> 5.2
+            if(min > mat[x2][i])
+                min = mat[x2][i];
+        }
+        //4. 아래서 위로
+        for(i = x2-1; i >= x1; i--){ //5.4 -> 5.2
+            if(min > mat[i][y1])
+                min = mat[i][y1];
+        }
+                
+        return min;    
+    }
+    
+    public int[] solution(int rows, int columns, int[][] queries) {
+        int[] answer = new int[queries.length];
+        Arrays.fill(answer,0);
+        int i=0, j=0, k=0;
+        int [][] mat = new int[rows][columns];
+        
+        for(i=0; i<rows; i++){
+            for(j=0; j<columns; j++){
+                mat[i][j] = (i*columns)+j+1;        
+            }
+        }
+        
+        for(i=0; i<queries.length; i++){
+            int min = rows*columns;
+            mat = swing(mat, queries[i]);
+            min = findMin(mat, queries[i], min);
+            answer[i] = min;
+        }
+        return answer;
+    }
+}
