@@ -1,0 +1,41 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Scanner;
+import java.util.Stack;
+
+class Main {
+	static int N;
+	static int cnt = 0;
+	static int [] mapCol;
+	
+	public static void main(String[] args) {
+	    Scanner sc = new Scanner(System.in);
+	    N = sc.nextInt();
+	    mapCol = new int [N];
+	    dfs(0);
+	   
+		System.out.println(cnt);
+	}
+
+	static void dfs(int row) {
+		if(row == N) {
+			cnt++; 
+			return;
+		}
+		
+		for(int i =0; i<N ; i++) {
+			mapCol[row] = i;
+			if(checkDrop(row)) {
+				dfs(row+1);
+			}			
+		}
+	}
+	static boolean checkDrop(int depth) {
+		 for(int i=0;i<depth;i++){
+			 if(mapCol[i] == mapCol[depth] || Math.abs(depth-i)== Math.abs(mapCol[depth]-mapCol[i])){
+				 return false;
+			 }
+		 }
+		 return true;
+	}
+}
