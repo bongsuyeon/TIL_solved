@@ -1,0 +1,35 @@
+import java.util.Map;
+import java.util.HashMap;
+
+class Solution {
+    public String[] solution(String[] record) {
+        String[] answer = {};
+        
+        HashMap<String, String> typeMap = new HashMap<>();
+        HashMap<String, String> userName = new HashMap<>();
+        
+        for(int i=0; i< record.length; i++){
+            String data = record[i];
+            String type = data.split(" ")[0].trim();
+            String userID = data.split(" ")[1];
+  //System.out.println(type);               
+            if(type.equals("Enter")){
+                System.out.println(type); 
+                typeMap.put(userID, type);
+                userName.put(userID, data.split(" ")[2]);                  
+            }else if(type == "Leave"){
+                typeMap.put(userID, type);
+            }else if(type == "Change"){
+                userName.put(userID, data.split(" ")[2]);  
+            }
+        }
+ System.out.println(typeMap);
+        for (Map.Entry <String, String> entry: typeMap.entrySet()) {
+           
+            //System.out.println("[Key]:" + entry.getKey() + " [Value]:" + entry.getValue());
+        }
+
+
+        return answer;
+    }
+}
