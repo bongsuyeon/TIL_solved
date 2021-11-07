@@ -1,0 +1,27 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Scanner;
+
+class algo {
+	public static void main(String[] args) {
+	    Scanner sc = new Scanner(System.in);
+	    String temp = sc.next();
+		StringBuffer str = new StringBuffer(temp);
+	    String popStr = sc.next();
+
+	   while(true) {
+		    int n = str.indexOf(popStr);
+	    	if(n > -1) {
+	    		str.delete(n,n+popStr.length());
+	    	}
+	    	else if(str.length()== 0 ) {
+	    		str.append("FRULA");
+	    		break;
+	    	}
+	    	else {
+	    		break;
+	    	}
+	    }
+	   System.out.println(str);
+	}
+}
